@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "cogent-tree-383605",
+  "private_key_id": "a6411cfa352802e4ea2a11c94a4b05d2ef78aa6a",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCiN0Sfdl/RgM0B\nwLfJ/75xR/UWgB9wYff/xQoH9GYvz3DT1m60Ycr8038yRjL3M+v9V3cSDriAS1QT\ns+LVwUHt5mPsAHiln2s2t/UXXsrr6p8da8X0CR7JNWu39Y6bhCAzjqw/GygcP0Q4\n3ZWg5dtUvOyW0Oh8sEGWUSYQZg5NgaE6tQSO7hre6DFe9OdBwtlmRWmrkl4Pcbtz\nvwATJIIgcdH2HQ/fZhNvh+Yc8TCSUOI9DOduq5U+AQlUwDWW9TX43X4lDoPxSO9R\ntzQZauu5BALkT1M9lYItg8NbypNwcP6SQYSraM9206aeagwNqGJJWAVh7CvqXJDi\nSfkYqJTVAgMBAAECggEACke+Yuy5kyllKfXwr9iJVTHePRgkO0G6LyIUSf9vH8Xh\nvKBw+6AxoRGLlMAQ0sxzlDv1doDVqIEdnvII2iBum95nTrmTlnYim/Z54zVFXut2\nPK3BKdS6Ir5D9AXtN7sz3ztCJ0MCqRJJXIvjw61NgnKb+82ELlgX5VLXOrV9Co77\n7oAqKY3kq1iHdUiiLOvVZiysT9WANNU5cSMOVOkRgfN+7zmd0FHI9NK1XX+yPlfk\nU9NoWKtgR2KYEtxKZCspCbg3QqWXrsYpzokO0IdSWrp5KazmeWZ76xwhwuo1SFzC\nHCV4zriV0VIWEu/GMsMpwXEoH5GezHImqz9K2V07MQKBgQDgmkHw78IdsnckoMmE\nvNGzCpwlM7gD37uPboh6kDGgA4HIsPlbKlIoWOLUx6gZ80pfgi7s60acXMyuLYOq\nqYrgjpcxyNYKJI7AhqTx/bKNGohIsIjRny8G0xTPhw5Eloz48qoElUaTc6wH3ICP\n6QJq49dwo3XaTR+TKXl1iD4q3wKBgQC45GiuRDEcksSKCtcuPL5h0SMn619ncDgg\nnaG4jJnk97qlFe63TM/03zEjEmfCLPz6KMMYGCmo6OrA42m/lBGqgKIeU1/cubYe\nuXjSUuXNr7DTAykI1RM7PAXJZrHGwxUY4XI2cEjozs9kl089XQYrtbKdvUlNDImj\n5FUxQiwqywKBgDySHTpmzkjH+k2MdwwvB7ZrJBT8T6Hr0l8qBfBXtqpah8Ohxn2J\nekKbRgDwHytwaxw6tYD7Kj284Q4QBDQgKO3KRogMi3yMw1q0dQM10dMv1pUT1rIB\nZeNHRZN57qUcnMP+XU+DGldlmH0+QAWPZzGAZHdh/cRzjBJZ2wGRToKtAoGAVjUB\nbgeTkowIIYkObZua9QbLSoifUh5rvSFiTycXdj/fgaupQ0QITldmlMC3Kj1JsuYg\nmPJjMkNveYJPQykp14LklBkxwDvC46583CwUxAOgAbMeheS7c8n3tMEyMMey5Yfw\ndduC0zHiVzeJlcXy45xzbMLeE5O99XG4GyCMcWMCgYAbHWzTeZpiyDEMW0CnwXTN\ndaMNJs6lsIKEnb3zLUsgj7CgG7NMSnJ4c44ArXmiBsEKww1Sf2Bbuq5NdJjdrHQ3\nS+yd7uTuDXLX4rcT+3Tc9aVn2cBe335GmFP5Eyo4WzsepKJG9eGP+WjgTGWfdhWd\nt0oa2L9woFWtnJA0y4OJhA==\n-----END PRIVATE KEY-----\n",
+  "client_email": "chatgpt@cogent-tree-383605.iam.gserviceaccount.com",
+  "client_id": "117399794670550951084",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/chatgpt%40cogent-tree-383605.iam.gserviceaccount.com"
+}
