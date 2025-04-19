@@ -7,11 +7,20 @@ import queue
 import openai
 import pvporcupine
 import struct
+from dotenv import load_dotenv  # Import dotenv to load environment variables
 
 from google.cloud import speech_v1p1beta1 as speech
 from google.cloud.speech_v1p1beta1.types import RecognitionConfig, StreamingRecognitionConfig, StreamingRecognizeRequest
 from google.cloud import texttospeech
 
+# Load environment variables from .env file
+load_dotenv()
+
+# Retrieve keys from environment variables
+openai.api_key = os.getenv("OPENAI_API_KEY")
+access_key = os.getenv("PORCUPINE")
+
+# os.environ["GOOGLE_APPLICATION_CREDENTIALS"] remains unchanged as it points to a file
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "google-service.json"
 
 # Set up the sounddevice stream
@@ -49,10 +58,11 @@ def generate_audio_data():
 
 # Initialize Porcupine
 keyword_file_path = "computer_raspberry-pi.ppn"
-access_key = "bxcqMTBJlO5uxQpuLXZCWUb1okVHXVYlvGbNz9VeM/16d1x5O9zivg=="
 
-porcupine = pvporcupine.create(
-    access_key=access_key, keyword_paths=[keyword_file_path])
+KEYWORD = "computer"  # You can create custom keywords. See the documentation at picovoice.ai for more information
+
+
+porcupine = pvporcupine.create(access_key=access_key, keywords=[KEYWORD])
 
 def wake_words_detect():
     # Set up PyAudio
@@ -116,7 +126,6 @@ def process_responses():
                 messages.append(
                     {"role": "user", "content": transcript},
                 )
-                openai.api_key = "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"
                 chat = openai.ChatCompletion.create(
                     model="gpt-3.5-turbo", messages=messages
                 )
