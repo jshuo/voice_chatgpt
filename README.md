@@ -29,3 +29,9 @@ In the future, I may add a keyword spotting algorithm to the project so that it 
 ## About the Author
 
 [Nick A. Bild, MS](https://nickbild79.firebaseapp.com/#!/)
+
+
+python voice_chat.py 2> /dev/null
+python main.py 2> /dev/null
+
+python chatgpt_assistant.py 2> /dev/null
