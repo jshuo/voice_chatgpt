@@ -2,6 +2,8 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 import openai
+import threading
+import subprocess
 
 
 class ChatGPTAssistant:
@@ -14,6 +16,8 @@ class ChatGPTAssistant:
         openai.api_key = self.api_key
 
         self.prompt = self._load_prompt(prompt_file)
+        self.tts_stop_event = threading.Event()
+        self.mpg321_process = None  # Track the mpg321 process
 
     def _load_prompt(self, prompt_file: str) -> str:
         """Load the prompt from a file."""
@@ -46,7 +50,16 @@ class ChatGPTAssistant:
                 voice=voice,
                 input=text
             )
-            response.stream_to_file(speech_file_path)
-            os.system(f"mpg321 {speech_file_path}")
+            with open(speech_file_path, "wb") as f:
+                if self.tts_stop_event.is_set():
+                    return  # Stop playback if the event is set
+                f.write(response.content)
+
+            # Terminate any existing mpg321 process before starting a new one
+            if self.mpg321_process and self.mpg321_process.poll() is None:
+                self.mpg321_process.terminate()
+
+            # Start mpg321 process
+            self.mpg321_process = subprocess.Popen(["mpg321", str(speech_file_path)])
         except Exception as e:
             raise RuntimeError(f"Error in text_to_speech: {e}")

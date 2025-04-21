@@ -36,22 +36,37 @@ class ChatGPTAssistantManager:
             logging.info("Initializing Porcupine...")
             porcupine = pvporcupine.create(access_key=access_key, keywords=[self.keyword])
             logging.info("Porcupine initialized successfully.")
-            pa = pyaudio.PyAudio()
-            audio_stream = pa.open(
-                rate=porcupine.sample_rate,
-                channels=1,
-                format=pyaudio.paInt16,
-                input=True,
-                frames_per_buffer=porcupine.frame_length
-            )
+            pa = None
+            audio_stream = None
+            try:
+                pa = pyaudio.PyAudio()
+                audio_stream = pa.open(
+                    rate=porcupine.sample_rate,
+                    channels=1,
+                    format=pyaudio.paInt16,
+                    input=True,
+                    frames_per_buffer=porcupine.frame_length
+                )
+            except Exception as e:
+                logging.error(f"Error initializing audio stream: {e}", exc_info=True)
+                if audio_stream:
+                    audio_stream.close()
+                if pa:
+                    pa.terminate()
+                raise
             logging.info("Audio stream opened successfully.")
             logging.info("Listening for keyword...")
+            print("Listening for keyword...")
             while True:
                 pcm = audio_stream.read(porcupine.frame_length, exception_on_overflow=False)
                 pcm = struct.unpack_from("h" * porcupine.frame_length, pcm)
                 if porcupine.process(pcm) >= 0:
                     logging.info("Keyword detected!")
                     self.keyword_detected.set()
+
+                    # Terminate mpg321 process if running
+                    if self.assistant.mpg321_process and self.assistant.mpg321_process.poll() is None:
+                        self.assistant.mpg321_process.terminate()
         except Exception as e:
             logging.error(f"Error in detect_keyword: {e}", exc_info=True)
         finally:
@@ -71,11 +86,14 @@ class ChatGPTAssistantManager:
             try:
                 with mic as source:
                     logging.info("Listening for speech...")
+                    print("Listening for speech...")
                     recognizer.adjust_for_ambient_noise(source, duration=1)
                     audio = recognizer.listen(source, timeout=10)
                     logging.info("Speech captured, recognizing...")
+                    print("Speech captured, recognizing...")
                     text = recognizer.recognize_google(audio)
                     logging.info(f"Recognized speech: {text}")
+                    print(f"Recognized speech: {text}")
                     self.response_queue.put(text)  # Add recognized text to the queue
             except Exception as e:
                 logging.error(f"Error in recognize_and_process_speech: {e}", exc_info=True)
@@ -88,6 +106,12 @@ class ChatGPTAssistantManager:
             try:
                 text = self.response_queue.get(timeout=5)  # Wait for a response
                 logging.info(f"Processing response for: {text}")
+
+                # Stop any ongoing text-to-speech process
+                self.assistant.tts_stop_event.set()  # Signal to stop the current TTS
+                time.sleep(0.1)  # Allow the current TTS to stop
+                self.assistant.tts_stop_event.clear()  # Reset the stop event
+
                 reply = self.assistant.get_reply(text)
                 logging.info(f"Reply: {reply}")
                 self.assistant.text_to_speech(reply)
